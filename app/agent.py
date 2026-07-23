@@ -1,6 +1,8 @@
 # app/agent.py
 from __future__ import annotations
 
+import os
+
 from langchain_anthropic import ChatAnthropic
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage
 from langgraph.errors import GraphRecursionError
@@ -9,7 +11,7 @@ from langgraph.prebuilt import create_react_agent
 from app.schemas import AgentAnswer, FinalAnswer, ToolCall
 from app.tools import ALL_TOOLS
 
-MODEL_ID = "claude-sonnet-5"
+MODEL_ID = os.getenv("MODEL_NAME","claude-sonnet-5")
 MAX_TOOL_CALLS = 10
 RECURSION_LIMIT = 2 * MAX_TOOL_CALLS + 1
 _OUTPUT_CAP = 600  # chars kept per tool output in the trail
